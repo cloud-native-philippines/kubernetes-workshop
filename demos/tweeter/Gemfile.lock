@@ -164,15 +164,15 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-  faraday
-  forgery
+  faraday (~> 0.11.0)
+  forgery (~> 0.6.0)
   jbuilder (~> 2.5)
   listen (~> 3.0.5)
-  literate_randomizer
+  literate_randomizer (~> 0.4.0)
   pg (~> 0.18)
   puma (~> 3.0)
   rails (~> 5.0.2)
-  rspec-rails
+  rspec-rails (~> 3.5.2)
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)
