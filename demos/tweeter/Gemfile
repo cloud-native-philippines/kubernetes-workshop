@@ -26,9 +26,17 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Use Faraday for the producer
+gem 'faraday'
+
+gem 'forgery'
+gem 'literate_randomizer'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+
+  gem 'rspec-rails'
 end
 
 group :development do
