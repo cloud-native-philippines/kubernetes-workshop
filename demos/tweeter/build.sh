@@ -33,15 +33,17 @@ else
   mkdir -p "$TMP"
 fi
 
+WORK_DIR="$TMP/$RELATIVE_PATH"
+echo "WORK_DIR => ${WORK_DIR}"
 
 if [ -z ${USE_WORKING_TREE+x} ]; then
   echo git checkout-index --prefix="$TMP/" -a
   git checkout-index --prefix="$TMP/" -a
 else
-  echo rsync -av . "$TMP" --exclude .git --exclude node_modules --exclude tmp
-  rsync -av . "$TMP" --exclude .git --exclude node_modules --exclude tmp
+  mkdir -p "$WORK_DIR"
+  echo rsync -a . "$WORK_DIR" --exclude .git --exclude node_modules --exclude tmp
+  rsync -a . "$WORK_DIR" --exclude .git --exclude node_modules --exclude tmp
 fi
-
 
 echo git submodule foreach --quiet 'git checkout-index --prefix="'$TMP'/$path/" -a'
 git submodule foreach --quiet 'git checkout-index --prefix="'$TMP'/$path/" -a'
@@ -50,8 +52,6 @@ if ! [ -z ${USE_WORKING_TREE+x} ]; then
   echo rm -rf "$TMP/.git"
   rm -rf "$TMP/.git"
 fi
-
-WORK_DIR="$TMP/$RELATIVE_PATH"
 
 if [ -z ${USE_WORKING_TREE+x} ] && [ ! "$CURRENT_BRANCH" = "develop" ]; then
   IMAGE_TAG=$(basename "$CURRENT_BRANCH")

@@ -46,11 +46,11 @@ RUN bundle config --global frozen 1
 RUN mkdir config
 
 # since we don't change JS libraries as much, do this first
-COPY package.json ./
+# COPY package.json ./
 RUN npm install
 
-COPY client /usr/src/app/client
-WORKDIR /usr/src/app/client
+# COPY client /usr/src/app/client
+# WORKDIR /usr/src/app/client
 RUN npm install
 WORKDIR /usr/src/app
 
@@ -65,4 +65,4 @@ RUN bundle install
 COPY . ./
 
 # Precompile Rails assets
-RUN bundle exec rake react_on_rails:assets:webpack
+# RUN bundle exec rake react_on_rails:assets:webpack
