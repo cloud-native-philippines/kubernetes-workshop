@@ -84,6 +84,7 @@ test:
 #
 production:
   <<: *default
+  host: postgres
   database: tweeter_production
   username: tweeter
   password: <%= ENV['TWEETER_DATABASE_PASSWORD'] %>
