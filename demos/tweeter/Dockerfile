@@ -65,4 +65,5 @@ RUN bundle install
 COPY . ./
 
 # Precompile Rails assets
+RUN bundle exec rake assets:precompile
 # RUN bundle exec rake react_on_rails:assets:webpack
