@@ -1,24 +1,32 @@
-# README
+## Deployment
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Minikube
 
-Things you may want to cover:
+```
+$ minikube start
+```
 
-* Ruby version
+##### Create PostgreSQL database
 
-* System dependencies
+```
+$ kubectl create -f postgres.yaml
+```
 
-* Configuration
+Verify that the service and pods are created
 
-* Database creation
+```
+$ kubectl get services -w
+```
 
-* Database initialization
+##### Connect to PostgreSQL
 
-* How to run the test suite
+```
+# Get the minikube VM IP address
+$ minikube ip
 
-* Services (job queues, cache servers, search engines, etc.)
+# Get the PostgreSQL minikube node port
+$ kubectl get service postgres -o 'jsonpath={.spec.ports[0].nodePort}'
 
-* Deployment instructions
-
-* ...
+# Connect to PostgreSQL
+$ psql -h $(minikube ip) -p $(kubectl get service postgres -o 'jsonpath={.spec.ports[0].nodePort}') -U postgres
+```
