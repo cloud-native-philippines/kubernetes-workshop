@@ -22,9 +22,11 @@ spec:
         ports:
         - containerPort: 5432
         env:
-        - name: TWEETER_POSTGRES_PASSWORD
-          value: secret
-
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: tweeter-secrets
+              key: postgress-password
 ---
 apiVersion: v1
 kind: Service

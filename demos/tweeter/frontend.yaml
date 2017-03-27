@@ -38,6 +38,12 @@ spec:
         - containerPort: 3000
         env:
         - name: TWEETER_POSTGRES_PASSWORD
-          value: secret
+          valueFrom:
+            secretKeyRef:
+              name: tweeter-secrets
+              key: postgress-password
         - name: SECRET_KEY_BASE
-          value: 69c953fe0051632acd2af0412e462afc5a58b393f2c0bf0d0add5f3dae26a6ea6c56a2eb9fe765cebcb9e589ee4c16477795b57b6c7fdf3dbc497d3502ba2ecc
+          valueFrom:
+            secretKeyRef:
+              name: tweeter-secrets
+              key: rails-secret-key-base
