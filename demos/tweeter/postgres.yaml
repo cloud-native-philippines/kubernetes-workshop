@@ -20,10 +20,10 @@ spec:
       - name: postgres
         image: postgres
         ports:
-          - containerPort: 5432
+        - containerPort: 5432
         env:
-          - name: POSTGRES_PASSWORD
-            value: secret
+        - name: TWEETER_POSTGRES_PASSWORD
+          value: secret
 
 ---
 apiVersion: v1

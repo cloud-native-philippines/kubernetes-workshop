@@ -1,0 +1,43 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tweeter-frontend
+  labels:
+    app: tweeter
+    tier: frontend
+spec:
+  # if your cluster supports it, change the following to "LoadBalancer" to
+  # automatically create an external load-balanced IP for the frontend service.
+  type: NodePort
+  ports:
+    # the port that this service should serve on
+  - port: 3000
+  selector:
+    app: tweeter
+    tier: frontend
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: tweeter-frontend
+spec:
+  # this replicas value is default
+  # modify it according to your case
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: tweeter
+        tier: frontend
+    spec:
+      containers:
+      - name: tweeter-frontend
+        image: aisrael/tweeter:master
+        ports:
+        - containerPort: 3000
+        env:
+        - name: TWEETER_POSTGRES_PASSWORD
+          value: secret
+        - name: SECRET_KEY_BASE
+          value: 69c953fe0051632acd2af0412e462afc5a58b393f2c0bf0d0add5f3dae26a6ea6c56a2eb9fe765cebcb9e589ee4c16477795b57b6c7fdf3dbc497d3502ba2ecc

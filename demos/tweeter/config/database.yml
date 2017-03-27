@@ -87,4 +87,4 @@ production:
   host: postgres
   database: tweeter_production
   username: postgres
-  password: <%= ENV['TWEETER_DATABASE_PASSWORD'] %>
+  password: <%= ENV['TWEETER_POSTGRES_PASSWORD'] %>

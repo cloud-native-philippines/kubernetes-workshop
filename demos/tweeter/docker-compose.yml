@@ -16,6 +16,4 @@ services:
     container_name: tweeter
     environment:
       - SECRET_KEY_BASE=69c953fe0051632acd2af0412e462afc5a58b393f2c0bf0d0add5f3dae26a6ea6c56a2eb9fe765cebcb9e589ee4c16477795b57b6c7fdf3dbc497d3502ba2ecc
-      - TWEETER_DATABASE_PASSWORD=secret
-#      - RAILS_ENV=development
-#      - RACK_ENV=development
+      - TWEETER_POSTGRES_PASSWORD=secret
