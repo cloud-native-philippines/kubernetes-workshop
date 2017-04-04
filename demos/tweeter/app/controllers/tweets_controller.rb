@@ -1,6 +1,8 @@
 class TweetsController < ApplicationController
 
-  protect_from_forgery with: :null_session
+  # See https://stackoverflow.com/questions/9362910/rails-warning-cant-verify-csrf-token-authenticity-for-json-devise-requests/10049965#10049965
+  protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
+  skip_before_action :verify_authenticity_token, if: Proc.new { |c| c.request.format == 'application/json' }
 
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
 
