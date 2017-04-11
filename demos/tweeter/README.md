@@ -6,10 +6,10 @@
 $ minikube start
 ```
 
-#### Deploy PostgreSQL
+#### Deploy MongoDB
 
 ```
-$ kubectl create -f postgres.yaml
+$ kubectl create -f mongo.yaml
 ```
 
 Verify that the service and pods are created
@@ -18,20 +18,20 @@ Verify that the service and pods are created
 $ kubectl get services -w
 ```
 
-##### Connect to PostgreSQL from host
+##### Connect to MongoDB from host
 
 ```
 # Get the minikube VM IP address
 $ minikube ip
 
-# Get the PostgreSQL minikube node port
-$ kubectl get service postgres -o 'jsonpath={.spec.ports[0].nodePort}'
+# Get the MongoDB minikube node port
+$ kubectl get service mongo -o 'jsonpath={.spec.ports[0].nodePort}'
 
-# Connect to PostgreSQL
-$ psql -h $(minikube ip) -p $(kubectl get service postgres -o 'jsonpath={.spec.ports[0].nodePort}') -U postgres
+# Connect to MongoDB
+$ curl $(minikube ip):$(kubectl get service mongo -o 'jsonpath={.spec.ports[0].nodePort}')
 ```
 
-##### Connect to PostgreSQL from a new pod
+##### Connect to MongoDB from a new pod
 
 ```
 $ kubectl run -i -t --rm psql --image=postgres --restart=Never --command -- psql -h postgres -U postgres

@@ -1,4 +1,4 @@
-FROM ruby:2.4.0
+FROM ruby:2.4.1
 
 MAINTAINER Alistair Israel <alistair@agsx.net>
 
@@ -7,7 +7,7 @@ ENV RACK_ENV production
 ENV RAILS_SERVE_STATIC_FILES true
 
 ENV NPM_CONFIG_LOGLEVEL info
-ENV NODE_VERSION 7.2.0
+ENV NODE_VERSION 6.9.0
 
 EXPOSE 3000
 
@@ -43,17 +43,6 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
 
 RUN bundle config --global frozen 1
 
-RUN mkdir config
-
-# since we don't change JS libraries as much, do this first
-# COPY package.json ./
-RUN npm install
-
-# COPY client /usr/src/app/client
-# WORKDIR /usr/src/app/client
-RUN npm install
-WORKDIR /usr/src/app
-
 # Gems don't change much either
 COPY Gemfile Gemfile.lock ./
 
@@ -64,6 +53,7 @@ RUN bundle install
 # From hereon, this will almost always create new images
 COPY . ./
 
+COPY config/mongoid.yml.dist config/mongoid.yml
+
 # Precompile Rails assets
 RUN bundle exec rake assets:precompile
-# RUN bundle exec rake react_on_rails:assets:webpack

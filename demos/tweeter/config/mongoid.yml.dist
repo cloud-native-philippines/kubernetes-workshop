@@ -1,0 +1,6 @@
+production:
+  clients:
+    default:
+      database: tweeter_development
+      hosts:
+        - mongo:27017

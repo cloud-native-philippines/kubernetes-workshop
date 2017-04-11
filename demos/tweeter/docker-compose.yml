@@ -1,19 +1,16 @@
 version: '2'
 services:
-  postgres:
-    image: postgres
+  mongo:
+    image: mongo
     ports:
-      - 5432:5432
-    container_name: postgres
-    environment:
-      - POSTGRES_PASSWORD=secret
+      - 27017:27017
+    container_name: mongo
   tweeter:
     image: aisrael/tweeter
     ports:
       - 3000:3000
     depends_on:
-      - postgres
+      - mongo
     container_name: tweeter
     environment:
       - SECRET_KEY_BASE=69c953fe0051632acd2af0412e462afc5a58b393f2c0bf0d0add5f3dae26a6ea6c56a2eb9fe765cebcb9e589ee4c16477795b57b6c7fdf3dbc497d3502ba2ecc
-      - TWEETER_POSTGRES_PASSWORD=secret
