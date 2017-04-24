@@ -46,4 +46,8 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # See https://blog.heroku.com/real_time_rails_implementing_websockets_in_rails_5_with_action_cable
+  config.action_cable.url = 'ws://localhost:3000/cable'
+
 end
