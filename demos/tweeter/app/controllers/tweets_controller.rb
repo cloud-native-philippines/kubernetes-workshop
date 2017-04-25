@@ -9,7 +9,7 @@ class TweetsController < ApplicationController
   # GET /tweets
   # GET /tweets.json
   def index
-    @tweets = Tweet.all
+    @tweets = Tweet.order_by(created_at: :desc)
   end
 
   # GET /tweets/1
