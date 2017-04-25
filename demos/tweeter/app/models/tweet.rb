@@ -8,9 +8,9 @@ class Tweet
   after_save do |tweet|
 
     Rails.logger.debug "Tweet.after_save: tweet => #{tweet.inspect}"
-    ActionCable.server.broadcast "tweets", {
-      handle: tweet.handle,
-      content: tweet.content
-    }
+    ActionCable.server.broadcast 'tweets',  id: tweet.id.to_s,
+                                            handle: tweet.handle,
+                                            content: tweet.content,
+                                            created_at: tweet.created_at.to_s
   end
 end

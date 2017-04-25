@@ -9,7 +9,7 @@ class TweetsController < ApplicationController
   # GET /tweets
   # GET /tweets.json
   def index
-    @tweets = Tweet.order_by(created_at: :desc)
+    @tweets = Tweet.order_by(created_at: :desc).limit(20)
   end
 
   # GET /tweets/1
