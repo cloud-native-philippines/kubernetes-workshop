@@ -41,8 +41,10 @@ gcloud config set compute/zone asia-east1-a
 
 #### Create GKE Cluster
 
+Make sure we're on Kubernetes version 1.6 at least
+
 ```
-$ gcloud container clusters create cluster-1
+$ gcloud container clusters create cluster-1 --cluster-version="1.6.1"
 Creating cluster cluster-1...done.
 Created [https://container.googleapis.com/v1/projects/amihan-151906/zones/asia-east1-c/clusters/cluster-1].
 kubeconfig entry generated for cluster-1.
@@ -66,5 +68,13 @@ kubectl create namespace ${mynamespace}
 
 ```
 kubectl config set-context $(kubectl config current-context) --namespace=${mynamespace}
+```
+
+#### Persistent Volumes
+
+##### Create a GCP disk
+
+```
+gcloud compute disks create --size 200GB mongo-disk
 ```
 

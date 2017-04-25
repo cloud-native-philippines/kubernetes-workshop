@@ -11,8 +11,8 @@ spec:
   # automatically create an external load-balanced IP for the frontend service.
   type: LoadBalancer
   ports:
-    # the port that this service should serve on
-  - port: 3000
+  - port: 80 # the port that this service should serve on
+    targetPort: 3000 # the port that this service should serve on
   selector:
     app: tweeter
     tier: frontend
@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: tweeter-frontend
-        image: aisrael/tweeter:master
+        image: aisrael/tweeter
         ports:
         - containerPort: 3000
         env:
