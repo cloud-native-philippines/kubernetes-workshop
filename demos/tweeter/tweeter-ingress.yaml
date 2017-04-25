@@ -1,0 +1,11 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: tweeter-ingress
+  labels:
+    app: tweeter
+    tier: frontend
+spec:
+  backend:
+    serviceName: tweeter-frontend
+    servicePort: 3000
