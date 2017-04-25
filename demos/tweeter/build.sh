@@ -21,7 +21,11 @@ set +e
 
 PWD=$(pwd)
 
+echo "\$PWD => ${PWD}"
+
 RELATIVE_PATH="${PWD#*$TOP_LEVEL/}"
+
+echo "\$RELATIVE_PATH => ${RELATIVE_PATH}"
 
 REPO_NAME='tweeter'
 
@@ -53,12 +57,19 @@ if ! [ -z ${USE_WORKING_TREE+x} ]; then
   rm -rf "$TMP/.git"
 fi
 
-if [ -z ${USE_WORKING_TREE+x} ] && [ ! "$CURRENT_BRANCH" = "develop" ]; then
+if [ -z ${USE_WORKING_TREE+x} ] && [ ! "$CURRENT_BRANCH" = "develop" -a ! "$CURRENT_BRANCH" = "master" ]; then
   IMAGE_TAG=$(basename "$CURRENT_BRANCH")
 
   echo docker build -t "aisrael/$REPO_NAME:$IMAGE_TAG" "$WORK_DIR"
   docker build -t "aisrael/$REPO_NAME:$IMAGE_TAG" "$WORK_DIR"
 else
-  echo docker build -t "aisrael/$REPO_NAME" "$WORK_DIR"
-  docker build -t "aisrael/$REPO_NAME" "$WORK_DIR"
+  if [ "$CURRENT_BRANCH" = "develop" ]; then
+    IMAGE_TAG=$(git rev-parse HEAD)
+
+    echo docker build -t "$REPO_NAME:latest"-t "$REPO_NAME:$IMAGE_TAG" "$WORK_DIR"
+    docker build -t "$REPO_NAME:latest" -t "$REPO_NAME:$IMAGE_TAG" "$WORK_DIR"
+  else
+    echo docker build -t "aisrael/$REPO_NAME" "$WORK_DIR"
+    docker build -t "$REPO_NAME" "$WORK_DIR"
+  fi
 fi
