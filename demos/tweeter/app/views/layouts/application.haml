@@ -1,0 +1,11 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Tweeter
+    = csrf_meta_tags
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = action_cable_meta_tag
+  %body
+    = yield
