@@ -27,7 +27,7 @@ RELATIVE_PATH="${PWD#*$TOP_LEVEL/}"
 
 echo "\$RELATIVE_PATH => ${RELATIVE_PATH}"
 
-REPO_NAME='tweeter'
+REPO_NAME='aisrael/tweeter'
 
 CURRENT_BRANCH=$(git symbolic-ref --short HEAD)
 
@@ -60,8 +60,8 @@ fi
 if [ -z ${USE_WORKING_TREE+x} ] && [ ! "$CURRENT_BRANCH" = "develop" -a ! "$CURRENT_BRANCH" = "master" ]; then
   IMAGE_TAG=$(basename "$CURRENT_BRANCH")
 
-  echo docker build -t "aisrael/$REPO_NAME:$IMAGE_TAG" "$WORK_DIR"
-  docker build -t "aisrael/$REPO_NAME:$IMAGE_TAG" "$WORK_DIR"
+  echo docker build -t "$REPO_NAME:$IMAGE_TAG" "$WORK_DIR"
+  docker build -t "$REPO_NAME:$IMAGE_TAG" "$WORK_DIR"
 else
   if [ "$CURRENT_BRANCH" = "develop" ]; then
     IMAGE_TAG=$(git rev-parse HEAD)
@@ -69,7 +69,7 @@ else
     echo docker build -t "$REPO_NAME:latest"-t "$REPO_NAME:$IMAGE_TAG" "$WORK_DIR"
     docker build -t "$REPO_NAME:latest" -t "$REPO_NAME:$IMAGE_TAG" "$WORK_DIR"
   else
-    echo docker build -t "aisrael/$REPO_NAME" "$WORK_DIR"
+    echo docker build -t "$REPO_NAME" "$WORK_DIR"
     docker build -t "$REPO_NAME" "$WORK_DIR"
   fi
 fi
