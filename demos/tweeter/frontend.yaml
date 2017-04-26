@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
       - name: tweeter-frontend
-        image: aisrael/tweeter:a202e46bd7a7ddbaadf031e99c3ef92924414298
+        image: aisrael/tweeter:ca8069adb7fea54ff687e5162f72d13a457e13db
         ports:
         - containerPort: 3000
         env:
