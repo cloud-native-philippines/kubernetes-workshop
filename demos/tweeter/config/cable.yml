@@ -6,4 +6,7 @@ test:
 
 production:
   adapter: redis
-  url: redis://redis-master:6379/1
+  url: redis://mymaster
+  sentinels:
+  - host: redis-sentinel
+    port: 26379

@@ -1,23 +1,15 @@
 ---
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: slow
-provisioner: kubernetes.io/gce-pd
-parameters:
-  type: pd-standard
-  zone: asia-southeast1-a
----
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  namespace: tweeter
   name: mongo-pv-claim
   labels:
     app: tweeter
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: slow
+  storageClassName: standard
   resources:
     requests:
       storage: 10Gi
@@ -25,11 +17,12 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
+  namespace: tweeter
   name: mongo
   labels:
     app: tweeter
     tier: db
-    db: mongo
+    service: mongo
 spec:
   replicas: 1
   template:
@@ -37,7 +30,7 @@ spec:
       labels:
         app: tweeter
         tier: db
-        db: mongo
+        service: mongo
     spec:
       containers:
       - name: mongo
@@ -55,14 +48,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: tweeter
   name: mongo
   labels:
     app: tweeter
+    tier: db
 spec:
-  type: NodePort
   selector:
     app: tweeter
     tier: db
-    db: mongo
+    service: mongo
   ports:
     - port: 27017
