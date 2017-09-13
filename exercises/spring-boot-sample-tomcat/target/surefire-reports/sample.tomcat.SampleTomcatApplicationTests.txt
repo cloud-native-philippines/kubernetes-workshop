@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: sample.tomcat.SampleTomcatApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.126 sec - in sample.tomcat.SampleTomcatApplicationTests
